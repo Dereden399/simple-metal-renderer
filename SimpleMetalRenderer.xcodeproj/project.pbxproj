@@ -11,6 +11,17 @@
 		92BA4E172C2DDB8D00BA0C83 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E162C2DDB8D00BA0C83 /* ContentView.swift */; };
 		92BA4E192C2DDB8E00BA0C83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92BA4E182C2DDB8E00BA0C83 /* Assets.xcassets */; };
 		92BA4E1D2C2DDB8E00BA0C83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92BA4E1C2C2DDB8E00BA0C83 /* Preview Assets.xcassets */; };
+		92BA4E282C2DE68800BA0C83 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E272C2DE68800BA0C83 /* MetalView.swift */; };
+		92BA4E2B2C2DE73B00BA0C83 /* MetalProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E2A2C2DE73B00BA0C83 /* MetalProgram.swift */; };
+		92BA4E2D2C2DEBD600BA0C83 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E2C2C2DEBD600BA0C83 /* Settings.swift */; };
+		92BA4E302C2DEDF700BA0C83 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E2F2C2DEDF700BA0C83 /* Renderer.swift */; };
+		92BA4E322C2DF1AE00BA0C83 /* Vertex.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E312C2DF1AE00BA0C83 /* Vertex.metal */; };
+		92BA4E342C2DF1B800BA0C83 /* Fragment.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E332C2DF1B800BA0C83 /* Fragment.metal */; };
+		92BA4E392C2DF54C00BA0C83 /* VertexDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E382C2DF54C00BA0C83 /* VertexDescriptor.swift */; };
+		92BA4E3B2C2DFB4200BA0C83 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E3A2C2DFB4200BA0C83 /* Utils.swift */; };
+		92BA4E3E2C2DFBAF00BA0C83 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E3D2C2DFBAF00BA0C83 /* Mesh.swift */; };
+		92BA4E402C2DFBB800BA0C83 /* Submesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E3F2C2DFBB800BA0C83 /* Submesh.swift */; };
+		92BA4E422C2DFBCF00BA0C83 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E412C2DFBCF00BA0C83 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +31,19 @@
 		92BA4E182C2DDB8E00BA0C83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92BA4E1A2C2DDB8E00BA0C83 /* SimpleMetalRenderer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleMetalRenderer.entitlements; sourceTree = "<group>"; };
 		92BA4E1C2C2DDB8E00BA0C83 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		92BA4E272C2DE68800BA0C83 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
+		92BA4E2A2C2DE73B00BA0C83 /* MetalProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalProgram.swift; sourceTree = "<group>"; };
+		92BA4E2C2C2DEBD600BA0C83 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		92BA4E2F2C2DEDF700BA0C83 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		92BA4E312C2DF1AE00BA0C83 /* Vertex.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Vertex.metal; sourceTree = "<group>"; };
+		92BA4E332C2DF1B800BA0C83 /* Fragment.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Fragment.metal; sourceTree = "<group>"; };
+		92BA4E352C2DF1C800BA0C83 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		92BA4E362C2DF25100BA0C83 /* Shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
+		92BA4E382C2DF54C00BA0C83 /* VertexDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexDescriptor.swift; sourceTree = "<group>"; };
+		92BA4E3A2C2DFB4200BA0C83 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		92BA4E3D2C2DFBAF00BA0C83 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		92BA4E3F2C2DFBB800BA0C83 /* Submesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submesh.swift; sourceTree = "<group>"; };
+		92BA4E412C2DFBCF00BA0C83 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +76,8 @@
 		92BA4E132C2DDB8D00BA0C83 /* SimpleMetalRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				92BA4E242C2DE65300BA0C83 /* SwiftUIViews */,
+				92BA4E232C2DE64000BA0C83 /* MetalRenderer */,
 				92BA4E142C2DDB8D00BA0C83 /* SimpleMetalRendererApp.swift */,
 				92BA4E162C2DDB8D00BA0C83 /* ContentView.swift */,
 				92BA4E182C2DDB8E00BA0C83 /* Assets.xcassets */,
@@ -67,6 +93,65 @@
 				92BA4E1C2C2DDB8E00BA0C83 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		92BA4E232C2DE64000BA0C83 /* MetalRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E3C2C2DFBA500BA0C83 /* Models */,
+				92BA4E372C2DF53600BA0C83 /* Utils */,
+				92BA4E2E2C2DEDE500BA0C83 /* Shaders */,
+				92BA4E292C2DE72800BA0C83 /* General */,
+			);
+			path = MetalRenderer;
+			sourceTree = "<group>";
+		};
+		92BA4E242C2DE65300BA0C83 /* SwiftUIViews */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E272C2DE68800BA0C83 /* MetalView.swift */,
+			);
+			path = SwiftUIViews;
+			sourceTree = "<group>";
+		};
+		92BA4E292C2DE72800BA0C83 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E2A2C2DE73B00BA0C83 /* MetalProgram.swift */,
+				92BA4E2C2C2DEBD600BA0C83 /* Settings.swift */,
+				92BA4E2F2C2DEDF700BA0C83 /* Renderer.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		92BA4E2E2C2DEDE500BA0C83 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E312C2DF1AE00BA0C83 /* Vertex.metal */,
+				92BA4E332C2DF1B800BA0C83 /* Fragment.metal */,
+				92BA4E352C2DF1C800BA0C83 /* Common.h */,
+				92BA4E362C2DF25100BA0C83 /* Shaders.h */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		92BA4E372C2DF53600BA0C83 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E382C2DF54C00BA0C83 /* VertexDescriptor.swift */,
+				92BA4E3A2C2DFB4200BA0C83 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		92BA4E3C2C2DFBA500BA0C83 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E3D2C2DFBAF00BA0C83 /* Mesh.swift */,
+				92BA4E3F2C2DFBB800BA0C83 /* Submesh.swift */,
+				92BA4E412C2DFBCF00BA0C83 /* Model.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +224,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BA4E2B2C2DE73B00BA0C83 /* MetalProgram.swift in Sources */,
+				92BA4E3E2C2DFBAF00BA0C83 /* Mesh.swift in Sources */,
+				92BA4E282C2DE68800BA0C83 /* MetalView.swift in Sources */,
 				92BA4E172C2DDB8D00BA0C83 /* ContentView.swift in Sources */,
+				92BA4E392C2DF54C00BA0C83 /* VertexDescriptor.swift in Sources */,
+				92BA4E342C2DF1B800BA0C83 /* Fragment.metal in Sources */,
+				92BA4E422C2DFBCF00BA0C83 /* Model.swift in Sources */,
+				92BA4E3B2C2DFB4200BA0C83 /* Utils.swift in Sources */,
+				92BA4E402C2DFBB800BA0C83 /* Submesh.swift in Sources */,
+				92BA4E322C2DF1AE00BA0C83 /* Vertex.metal in Sources */,
 				92BA4E152C2DDB8D00BA0C83 /* SimpleMetalRendererApp.swift in Sources */,
+				92BA4E302C2DEDF700BA0C83 /* Renderer.swift in Sources */,
+				92BA4E2D2C2DEBD600BA0C83 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +390,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = SimpleMetalRenderer/MetalRenderer/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -332,6 +429,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = SimpleMetalRenderer/MetalRenderer/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

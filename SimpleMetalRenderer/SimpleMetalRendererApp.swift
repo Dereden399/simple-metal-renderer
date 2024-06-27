@@ -11,7 +11,11 @@ import SwiftUI
 struct SimpleMetalRendererApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MetalView()
         }
     }
+}
+
+#Preview {
+    MetalView()
 }
