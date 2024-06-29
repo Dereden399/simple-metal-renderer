@@ -14,9 +14,14 @@ using namespace metal;
 vertex VertexOut vertex_main(VertexIn input [[stage_in]],
                              constant Uniforms &uniforms [[buffer(UniformsBuffer)]] )
 {
+    float4 worldPosition = uniforms.modelMatrix * input.position;
     VertexOut out = {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * input.position,
-        .uv = input.uv + float2(0.5, 0.5)
+        .worldNormal = uniforms.normalMatrix*input.normal,
+        .worldPosition = worldPosition.xyz / worldPosition.w,
+        .worldTangent = uniforms.normalMatrix*input.tangent,
+        .worldBitangent = uniforms.normalMatrix*input.bitangent,
+        .uv = input.uv
     };
     return out;
 }

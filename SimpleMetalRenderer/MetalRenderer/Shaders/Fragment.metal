@@ -8,12 +8,14 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "Common.h"
+#import "Lighting.h"
 #import "Shaders.h"
 
 fragment float4 fragment_main(
                               VertexOut input [[stage_in]],
-                              constant MyMaterial &_material [[buffer(MaterialBuffer)]],
+                              constant MyMaterial &material [[buffer(MaterialBuffer)]],
+                              constant Light* lights [[buffer(LightsBuffer)]],
+                              constant Params &params [[buffer(ParamsBuffer)]],
                               texture2d<float> baseColorTexture [[texture(DiffuseMap)]],
                               texture2d<float> normalTexture [[texture(NormalMap)]],
                               texture2d<float> specularTexture [[texture(SpecularMap)]])
@@ -21,8 +23,18 @@ fragment float4 fragment_main(
     constexpr sampler textureSampler(
                                      filter::linear,
                                      mip_filter::linear,
-                                     max_anisotropy(8),
                                      address::repeat);
-    float3 color = baseColorTexture.sample(textureSampler, input.uv).rgb;
-    return float4(color, 1);
+    float4 diffuseColor = baseColorTexture.sample(textureSampler, input.uv) * material.blendColor;
+    float3 specularIntensity = specularTexture.sample(textureSampler, input.uv).rgb;
+    float3 normal = input.worldNormal;
+    if (!is_null_texture(normalTexture)) {
+        normal = normalTexture.sample(textureSampler, input.uv).rgb;
+        normal = normal*2 - 1;
+        normal = float3x3(input.worldTangent, input.worldBitangent, input.worldNormal)*normal;
+    }
+    normal = normalize(normal);
+    
+    float3 result = processPhong(lights, params, material, normal, input.worldPosition, diffuseColor.rgb, specularIntensity);
+    
+    return float4(result, diffuseColor.a);
 }

@@ -25,28 +25,28 @@ extension MDLVertexDescriptor {
         )
         offset += MemoryLayout<float3>.stride
         vertexDescriptor.attributes[Normal.index] = MDLVertexAttribute(
-            name: MDLVertexAttributePosition,
+            name: MDLVertexAttributeNormal,
             format: .float3,
             offset: offset,
             bufferIndex: VertexBuffer.index
         )
         offset += MemoryLayout<float3>.stride
         vertexDescriptor.attributes[Uv.index] = MDLVertexAttribute(
-            name: MDLVertexAttributePosition,
+            name: MDLVertexAttributeTextureCoordinate,
             format: .float2,
             offset: offset,
             bufferIndex: VertexBuffer.index
         )
         offset += MemoryLayout<float2>.stride
         vertexDescriptor.attributes[Tangent.index] = MDLVertexAttribute(
-            name: MDLVertexAttributePosition,
+            name: MDLVertexAttributeTangent,
             format: .float3,
             offset: offset,
             bufferIndex: VertexBuffer.index
         )
         offset += MemoryLayout<float3>.stride
         vertexDescriptor.attributes[Bitangent.index] = MDLVertexAttribute(
-            name: MDLVertexAttributePosition,
+            name: MDLVertexAttributeBitangent,
             format: .float3,
             offset: offset,
             bufferIndex: VertexBuffer.index

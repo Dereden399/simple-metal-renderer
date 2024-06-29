@@ -7,7 +7,7 @@
 
 import MetalKit
 
-struct Material {
+class Material {
     struct Textures {
         var diffuseMap: MTLTexture
         var specularMap: MTLTexture
@@ -22,13 +22,13 @@ struct Material {
         self.materialParams = materialParams
     }
     
-    init(blendColor: float3) {
+    init(blendColor: float4) {
         self.textures = Textures(diffuseMap: ResourcesManager.shared.defaultDiffuseTexture, specularMap: ResourcesManager.shared.defaultSpecularTexture)
         self.materialParams = MyMaterial(shininess: 64, blendColor: blendColor, emissionStrenght: 1)
     }
     
     init(textures: Textures) {
         self.textures = textures
-        self.materialParams = MyMaterial(shininess: 64, blendColor: [1, 1, 1], emissionStrenght: 1)
+        self.materialParams = MyMaterial(shininess: 64, blendColor: [1, 1, 1, 1], emissionStrenght: 1)
     }
 }

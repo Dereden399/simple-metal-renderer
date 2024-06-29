@@ -32,13 +32,15 @@ class ResourcesManager {
         }
         defaultDiffuseTexture = defaultDiffuseTexture_
         defaultSpecularTexture = defaultSpecularTexture_
+        let material = Material(textures: .init(diffuseMap: defaultDiffuseTexture_, specularMap: defaultSpecularTexture_))
+        materials["DefaultMaterial"] = material
+        defaultMaterial = material
     }
 
     func loadTexture(name: String) -> MTLTexture? {
         if let texture = textures[name] {
             return texture
         }
-
         let textureLoader = MTKTextureLoader(device: Renderer.device)
 
         do {
@@ -74,14 +76,15 @@ class ResourcesManager {
         if let material = materials[name] {
             return material
         }
-        let material = Material(blendColor: [1, 1, 1])
+        let material = Material(blendColor: [1, 1, 1, 1])
         materials[name] = material
+        print("loaded material: \(name)")
         return material
     }
     
-    func loadModel(primitive: PrimitiveType, name: String) -> Model? {
-        if let mesh = meshes[name] {
-            let model = Model(mesh: mesh)
+    func loadModel(primitive: PrimitiveType, meshName: String) -> Model? {
+        if let mesh = meshes[meshName] {
+            let model = Model(meshes: [mesh])
             return model;
         }
         
@@ -98,8 +101,9 @@ class ResourcesManager {
         }()
         mdlMesh.vertexDescriptor = .defaultLayout
         if let mtkMesh = try? MTKMesh(mesh: mdlMesh, device: Renderer.device) {
-            meshes[name] = mtkMesh
-            let model = Model(mesh: mtkMesh)
+            meshes[meshName] = mtkMesh
+            let model = Model(meshes: [mtkMesh])
+            print("loaded new mesh: \(meshName)")
             return model;
         } else {
             print("Error converting mdlmesh to mtkmesh")

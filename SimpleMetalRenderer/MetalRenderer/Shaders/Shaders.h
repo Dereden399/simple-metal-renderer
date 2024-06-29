@@ -18,7 +18,12 @@ struct VertexIn {
 
 struct VertexOut {
     float4 position [[position]];
+    float3 worldNormal;
     float2 uv;
+    float3 worldPosition;
+    float3 worldTangent;
+    float3 worldBitangent;
+    
 };
 
 

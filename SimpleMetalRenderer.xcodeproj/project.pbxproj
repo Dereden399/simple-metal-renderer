@@ -26,6 +26,9 @@
 		92BA4E4E2C2F320300BA0C83 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E4D2C2F320300BA0C83 /* Transformable.swift */; };
 		92BA4E502C2FED1E00BA0C83 /* ProgramScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E4F2C2FED1E00BA0C83 /* ProgramScene.swift */; };
 		92BA4E522C2FED2B00BA0C83 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E512C2FED2B00BA0C83 /* Camera.swift */; };
+		92BA4E582C30144900BA0C83 /* Rendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E572C30144900BA0C83 /* Rendering.swift */; };
+		92BA4E5A2C306C4100BA0C83 /* LightUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E592C306C4100BA0C83 /* LightUtils.swift */; };
+		92BA4E5D2C307FE300BA0C83 /* Lighting.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E5C2C307FE300BA0C83 /* Lighting.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,10 @@
 		92BA4E4D2C2F320300BA0C83 /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		92BA4E4F2C2FED1E00BA0C83 /* ProgramScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramScene.swift; sourceTree = "<group>"; };
 		92BA4E512C2FED2B00BA0C83 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		92BA4E572C30144900BA0C83 /* Rendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rendering.swift; sourceTree = "<group>"; };
+		92BA4E592C306C4100BA0C83 /* LightUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightUtils.swift; sourceTree = "<group>"; };
+		92BA4E5B2C307D5C00BA0C83 /* Lighting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
+		92BA4E5C2C307FE300BA0C83 /* Lighting.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Lighting.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +141,7 @@
 				92BA4E482C2F156800BA0C83 /* ResourcesManager.swift */,
 				92BA4E4F2C2FED1E00BA0C83 /* ProgramScene.swift */,
 				92BA4E512C2FED2B00BA0C83 /* Camera.swift */,
+				92BA4E572C30144900BA0C83 /* Rendering.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -145,6 +153,8 @@
 				92BA4E332C2DF1B800BA0C83 /* Fragment.metal */,
 				92BA4E352C2DF1C800BA0C83 /* Common.h */,
 				92BA4E362C2DF25100BA0C83 /* Shaders.h */,
+				92BA4E5B2C307D5C00BA0C83 /* Lighting.h */,
+				92BA4E5C2C307FE300BA0C83 /* Lighting.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -154,6 +164,7 @@
 			children = (
 				92BA4E382C2DF54C00BA0C83 /* VertexDescriptor.swift */,
 				92BA4E3A2C2DFB4200BA0C83 /* Utils.swift */,
+				92BA4E592C306C4100BA0C83 /* LightUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -256,8 +267,11 @@
 				92BA4E522C2FED2B00BA0C83 /* Camera.swift in Sources */,
 				92BA4E2B2C2DE73B00BA0C83 /* MetalProgram.swift in Sources */,
 				92BA4E282C2DE68800BA0C83 /* MetalView.swift in Sources */,
+				92BA4E582C30144900BA0C83 /* Rendering.swift in Sources */,
 				92BA4E172C2DDB8D00BA0C83 /* ContentView.swift in Sources */,
 				92BA4E392C2DF54C00BA0C83 /* VertexDescriptor.swift in Sources */,
+				92BA4E5A2C306C4100BA0C83 /* LightUtils.swift in Sources */,
+				92BA4E5D2C307FE300BA0C83 /* Lighting.metal in Sources */,
 				92BA4E342C2DF1B800BA0C83 /* Fragment.metal in Sources */,
 				92BA4E422C2DFBCF00BA0C83 /* Model.swift in Sources */,
 				92BA4E502C2FED1E00BA0C83 /* ProgramScene.swift in Sources */,

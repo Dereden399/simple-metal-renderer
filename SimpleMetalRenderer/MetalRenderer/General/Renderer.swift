@@ -13,7 +13,9 @@ class Renderer: NSObject {
     static var library: MTLLibrary!
     
     var pipelineState: MTLRenderPipelineState!
+    let depthStencilState: MTLDepthStencilState?
     
+    var uniforms: Uniforms = Uniforms()
     
     init(metalView: MTKView) {
         guard
@@ -36,7 +38,7 @@ class Renderer: NSObject {
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
         pipelineDescriptor.colorAttachments[0].pixelFormat = metalView.colorPixelFormat
-        
+        pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
         pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultLayout
         do {
             pipelineState = try device.makeRenderPipelineState(descriptor: pipelineDescriptor)
@@ -44,13 +46,23 @@ class Renderer: NSObject {
             fatalError(error.localizedDescription)
         }
         
+        depthStencilState = Renderer.buildDepthStencilState()
+        
         super.init()
         metalView.clearColor = MTLClearColor(
             red: 0.93,
             green: 0.97,
             blue: 1.0,
             alpha: 1.0)
+        metalView.depthStencilPixelFormat = .depth32Float
     }
+    static func buildDepthStencilState() -> MTLDepthStencilState? {
+        let descriptor = MTLDepthStencilDescriptor()
+        descriptor.depthCompareFunction = .less
+        descriptor.isDepthWriteEnabled = true
+        return Renderer.device.makeDepthStencilState(
+          descriptor: descriptor)
+      }
 }
 
 extension Renderer {
@@ -65,35 +77,24 @@ extension Renderer {
             return
         }
         
+        renderEncoder.setDepthStencilState(depthStencilState)
         renderEncoder.setRenderPipelineState(pipelineState)
         
+        var lights = scene.lights
+        renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride*lights.count, index: LightsBuffer.index)
+        
+        var params = Params(lightCount: uint(lights.count), cameraPos: scene.selectedCamera!.position)
+        renderEncoder.setFragmentBytes(&params, length: MemoryLayout<Params>.stride, index: ParamsBuffer.index)
+        
         for model in scene.models {
-            var uniforms = Uniforms()
             uniforms.viewMatrix = scene.selectedCamera?.viewMatrix ?? matrix_float4x4.identity
             uniforms.projectionMatrix = scene.selectedCamera?.projectionMatrix ?? matrix_float4x4.identity
-            uniforms.modelMatrix = model.transform.modelMatrix
-            
-            renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: UniformsBuffer.index)
-            
-            renderEncoder.setVertexBuffer(model.mesh.vertexBuffers[0].buffer, offset: 0, index: VertexBuffer.index)
-            
-            for (index, submesh) in model.mesh.submeshes.enumerated() {
-                guard var material = model.materials[index] else {
-                    fatalError("Something went wrong")
-                }
-                renderEncoder.setFragmentBytes(&material.materialParams, length: MemoryLayout<MyMaterial>.stride, index: MaterialBuffer.index)
-                renderEncoder.setFragmentTexture(material.textures.diffuseMap, index: DiffuseMap.index)
-                renderEncoder.setFragmentTexture(material.textures.specularMap, index: SpecularMap.index)
-                
-                renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset)
-            }
-            
+            model.render(encoder: renderEncoder, uniforms: uniforms)
         }
-        
         
         renderEncoder.endEncoding()
         guard let drawable = view.currentDrawable else {
-          fatalError()
+            fatalError()
         }
         commandBuffer.present(drawable)
         commandBuffer.commit()
