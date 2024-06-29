@@ -24,7 +24,35 @@ extension MDLVertexDescriptor {
             bufferIndex: VertexBuffer.index
         )
         offset += MemoryLayout<float3>.stride
-
+        vertexDescriptor.attributes[Normal.index] = MDLVertexAttribute(
+            name: MDLVertexAttributePosition,
+            format: .float3,
+            offset: offset,
+            bufferIndex: VertexBuffer.index
+        )
+        offset += MemoryLayout<float3>.stride
+        vertexDescriptor.attributes[Uv.index] = MDLVertexAttribute(
+            name: MDLVertexAttributePosition,
+            format: .float2,
+            offset: offset,
+            bufferIndex: VertexBuffer.index
+        )
+        offset += MemoryLayout<float2>.stride
+        vertexDescriptor.attributes[Tangent.index] = MDLVertexAttribute(
+            name: MDLVertexAttributePosition,
+            format: .float3,
+            offset: offset,
+            bufferIndex: VertexBuffer.index
+        )
+        offset += MemoryLayout<float3>.stride
+        vertexDescriptor.attributes[Bitangent.index] = MDLVertexAttribute(
+            name: MDLVertexAttributePosition,
+            format: .float3,
+            offset: offset,
+            bufferIndex: VertexBuffer.index
+        )
+        offset += MemoryLayout<float3>.stride
+        
         vertexDescriptor.layouts[VertexBuffer.index] = MDLVertexBufferLayout(stride: offset)
         return vertexDescriptor
     }
@@ -37,6 +65,12 @@ extension Attributes {
 }
 
 extension BufferIndices {
+    var index: Int {
+        return Int(self.rawValue)
+    }
+}
+
+extension TextureIndices {
     var index: Int {
         return Int(self.rawValue)
     }

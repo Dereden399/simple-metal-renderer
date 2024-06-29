@@ -14,7 +14,6 @@ class Renderer: NSObject {
     
     var pipelineState: MTLRenderPipelineState!
     
-    var testMesh: MDLMesh
     
     init(metalView: MTKView) {
         guard
@@ -45,9 +44,6 @@ class Renderer: NSObject {
             fatalError(error.localizedDescription)
         }
         
-        testMesh = MDLMesh(sphereWithExtent: [1, 1, 1], segments: [100, 100], inwardNormals: false, geometryType: .triangles, allocator: MTKMeshBufferAllocator(device: device))
-        testMesh.vertexDescriptor = .defaultLayout
-        
         super.init()
         metalView.clearColor = MTLClearColor(
             red: 0.93,
@@ -58,7 +54,7 @@ class Renderer: NSObject {
 }
 
 extension Renderer {
-    func draw(in view: MTKView) {
+    func draw(in view: MTKView, scene: ProgramScene) {
         guard
             let commandBuffer = Self.commandQueue.makeCommandBuffer(),
             let descriptor = view.currentRenderPassDescriptor,
@@ -71,13 +67,29 @@ extension Renderer {
         
         renderEncoder.setRenderPipelineState(pipelineState)
         
-        let testMTKMesh = try! MTKMesh(mesh: testMesh, device: Renderer.device)
-        renderEncoder.setVertexBuffer(testMTKMesh.vertexBuffers[0].buffer, offset: 0, index: VertexBuffer.index)
-        guard let submesh = testMTKMesh.submeshes.first else {
-          fatalError()
+        for model in scene.models {
+            var uniforms = Uniforms()
+            uniforms.viewMatrix = scene.selectedCamera?.viewMatrix ?? matrix_float4x4.identity
+            uniforms.projectionMatrix = scene.selectedCamera?.projectionMatrix ?? matrix_float4x4.identity
+            uniforms.modelMatrix = model.transform.modelMatrix
+            
+            renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: UniformsBuffer.index)
+            
+            renderEncoder.setVertexBuffer(model.mesh.vertexBuffers[0].buffer, offset: 0, index: VertexBuffer.index)
+            
+            for (index, submesh) in model.mesh.submeshes.enumerated() {
+                guard var material = model.materials[index] else {
+                    fatalError("Something went wrong")
+                }
+                renderEncoder.setFragmentBytes(&material.materialParams, length: MemoryLayout<MyMaterial>.stride, index: MaterialBuffer.index)
+                renderEncoder.setFragmentTexture(material.textures.diffuseMap, index: DiffuseMap.index)
+                renderEncoder.setFragmentTexture(material.textures.specularMap, index: SpecularMap.index)
+                
+                renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset)
+            }
+            
         }
         
-        renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset)
         
         renderEncoder.endEncoding()
         guard let drawable = view.currentDrawable else {

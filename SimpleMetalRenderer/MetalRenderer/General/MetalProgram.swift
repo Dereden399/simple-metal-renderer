@@ -9,8 +9,12 @@ import MetalKit
 
 class MetalProgram: NSObject {
     var renderer: Renderer
+    var scene: ProgramScene?
     init(metalView: MTKView) {
         renderer = Renderer(metalView: metalView)
+        scene = ProgramScene()
+        scene?.initWithBasicObjects()
+        scene?.models[0].materials[0]?.textures.diffuseMap = ResourcesManager.shared.loadTexture(name: "Container")!
         super.init()
         metalView.delegate = self
         mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)
@@ -23,6 +27,8 @@ extension MetalProgram: MTKViewDelegate {
     }
     
     func draw(in view: MTKView) {
-        renderer.draw(in: view)
+        if let scene_ = scene {
+            renderer.draw(in: view, scene: scene_)
+        }
     }
 }

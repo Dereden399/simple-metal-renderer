@@ -11,9 +11,12 @@ using namespace metal;
 #import "Common.h"
 #import "Shaders.h"
 
-vertex VertexOut vertex_main(VertexIn input [[stage_in]]) {
+vertex VertexOut vertex_main(VertexIn input [[stage_in]],
+                             constant Uniforms &uniforms [[buffer(UniformsBuffer)]] )
+{
     VertexOut out = {
-        .position = input.position
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * input.position,
+        .uv = input.uv + float2(0.5, 0.5)
     };
     return out;
 }
