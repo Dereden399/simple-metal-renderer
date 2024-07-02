@@ -12,16 +12,17 @@ using namespace metal;
 #import "Shaders.h"
 
 vertex VertexOut vertex_main(VertexIn input [[stage_in]],
-                             constant Uniforms &uniforms [[buffer(UniformsBuffer)]] )
+                             constant Uniforms &uniforms [[buffer(UniformsBuffer)]],
+                             constant MyMaterial &material [[buffer(MaterialBuffer)]])
 {
     float4 worldPosition = uniforms.modelMatrix * input.position;
     VertexOut out = {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * input.position,
         .worldNormal = uniforms.normalMatrix*input.normal,
         .worldPosition = worldPosition.xyz / worldPosition.w,
-        .worldTangent = uniforms.normalMatrix*input.tangent,
-        .worldBitangent = uniforms.normalMatrix*input.bitangent,
-        .uv = input.uv
+        .worldTangent = (uniforms.modelMatrix*float4(input.tangent, 0)).xyz,
+        .worldBitangent = (uniforms.modelMatrix*float4(input.bitangent,0)).xyz,
+        .uv = {input.uv.x * material.tiling.x, input.uv.y*material.tiling.y}
     };
     return out;
 }

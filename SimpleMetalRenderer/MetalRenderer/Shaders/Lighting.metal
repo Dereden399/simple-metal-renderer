@@ -27,23 +27,50 @@ float3 processPhong(constant Light* lights, constant Params& params, constant My
                 if (diffuseIntensity > 0) {
                     float3 dirToViewer = normalize(params.cameraPos-worldPos);
                     float3 halfwayDir = normalize(dirToViewer + lightDirection);
-                    float spec =
-                    pow(saturate(dot(normal, halfwayDir)),
-                        material.shininess);
-                    specular +=
-                    light.color * spec * specularIntensity;
+                    float spec = pow(saturate(dot(normal, halfwayDir)),material.shininess);
+                    specular += light.color * spec * specularIntensity;
                 }
                 ambient += light.ambientIntensity*light.color*diffuseColor;
                 break;
             }
             case Spot: {
-                
+                float d = distance(light.position, worldPos);
+                float3 lightDirection = normalize(light.position - worldPos);
+                float3 coneDirection = normalize(light.coneDirection);
+                float spotResult = dot(lightDirection, -coneDirection);
+                if (spotResult > cos(light.coneAngle)) {
+                    float attenuation = 1.0 / (light.attenuation.x +
+                                               light.attenuation.y * d + light.attenuation.z * d * d);
+                    attenuation *= pow(spotResult, light.coneAttenuation);
+                    float diffuseIntensity = saturate(dot(lightDirection, normal));
+                    diffuse += light.color*diffuseColor*diffuseIntensity*attenuation;
+                    if (diffuseIntensity > 0) {
+                        float3 dirToViewer = normalize(params.cameraPos-worldPos);
+                        float3 halfwayDir = normalize(dirToViewer + lightDirection);
+                        float spec = pow(saturate(dot(normal, halfwayDir)),material.shininess);
+                        specular += light.color * spec * specularIntensity*attenuation;
+                    }
+                    ambient += light.ambientIntensity*light.color*attenuation*diffuseColor;
+                }
             }
                 break;
             case Point: {
+                float d = distance(light.position, worldPos);
+                float3 lightDirection = normalize(light.position - worldPos);
+                float attenuation = 1.0 / (light.attenuation.x +
+                                           light.attenuation.y * d + light.attenuation.z * d * d);
                 
-            }
+                float diffuseIntensity = saturate(dot(lightDirection, normal));
+                diffuse += light.color*diffuseColor*diffuseIntensity*attenuation;
+                if (diffuseIntensity > 0) {
+                    float3 dirToViewer = normalize(params.cameraPos-worldPos);
+                    float3 halfwayDir = normalize(dirToViewer + lightDirection);
+                    float spec = pow(saturate(dot(normal, halfwayDir)),material.shininess);
+                    specular += light.color * spec * specularIntensity*attenuation;
+                }
+                ambient += light.ambientIntensity*light.color*attenuation*diffuseColor;
                 break;
+            }
         }
     }
     

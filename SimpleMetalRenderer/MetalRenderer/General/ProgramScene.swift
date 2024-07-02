@@ -7,10 +7,14 @@
 
 import MetalKit
 
-struct ProgramScene {
+class ProgramScene {
     var selectedCamera: Camera?
     var models: [Model]
     var lights: [Light]
+    
+    typealias Callback = (Double, Double) -> Void
+    
+    var callbacks: [Callback] = []
     
     init(selectedCamera: Camera? = nil, models: [Model] = [], lights: [Light] = []) {
         self.selectedCamera = selectedCamera
@@ -20,10 +24,10 @@ struct ProgramScene {
 }
 
 extension ProgramScene {
-    mutating func initWithBasicObjects() {
-        self.selectedCamera = PerspectiveCamera()
-        self.selectedCamera!.position = [0, 2, -4]
-        self.selectedCamera!.rotation = [30, 0, 0]
+    func initWithBasicObjects() {
+        self.selectedCamera = FloatingCamera()
+        self.selectedCamera!.position = [0, 0, -4]
+        self.selectedCamera!.rotation = [0, 0, 0]
         
         guard
             var cube = ResourcesManager.shared.loadModel(primitive: .cube, meshName: "CubeMesh"),
@@ -33,23 +37,50 @@ extension ProgramScene {
         }
         self.models = [cube, sphere]
         
-        cube.position = [-1, 0, 0]
+        cube.position = [0, -1, 0]
+        cube.scale = [10, 10, 0.1]
+        cube.rotation = [90, 0, 0]
         let cubeMaterial = ResourcesManager.shared.loadMaterial(name: "CubeMaterial")
         cubeMaterial.materialParams.blendColor = [1, 1, 1, 1]
+        cubeMaterial.materialParams.tiling = [10, 10]
         cube.setMaterial(cubeMaterial)
-        cubeMaterial.textures.diffuseMap = ResourcesManager.shared.loadTexture(name: "Container")!
+        cubeMaterial.textures.diffuseMap = ResourcesManager.shared.loadTexture(name: "Brickwall")!
+        cubeMaterial.textures.normalMap = ResourcesManager.shared.loadTexture(name: "Brickwall_normal")!
+        cubeMaterial.materialParams.useNormalMap = 1;
+        
+//        self.callbacks.append { currentTime, _ in
+//            cube.rotation.x = Float(sin(currentTime) * 90)
+//        }
         
         sphere.position = [1, 0, 0]
         let sphereMaterial = ResourcesManager.shared.loadMaterial(name: "SphereMaterial")
-        sphereMaterial.materialParams.blendColor = [0, 1, 0, 1]
+        sphereMaterial.materialParams.blendColor = [0.05, 1, 0.05, 1]
         sphere.setMaterial(sphereMaterial)
+        
+        if var model = ResourcesManager.shared.loadModel(modelName: "train.usdz") {
+            model.position = [-3, -1, 0]
+            model.rotation = [0, 90, 0]
+            self.models.append(model)
+        }
+        
+        
+        
+        
         
         var sun = Light.getDefaultLight()
         sun.type = Sun
-        sun.ambientIntensity = 0.1
-        sun.position = [2, 1, -2]
+        sun.ambientIntensity = 0.2
+        sun.position = [2, 2, -2]
         sun.color = [1, 1, 1]
         
-        lights = [sun]
+        var point = Light.getDefaultLight()
+        point.type = Point
+        point.ambientIntensity = 0.05
+        point.color = [1, 0, 1]
+        point.attenuation = [1, 0.4, 0.4]
+        point.position = [-1, -0.5, 0]
+        
+        
+        self.lights = [sun, point]
     }
 }

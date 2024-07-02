@@ -50,9 +50,9 @@ class Renderer: NSObject {
         
         super.init()
         metalView.clearColor = MTLClearColor(
-            red: 0.93,
-            green: 0.97,
-            blue: 1.0,
+            red: 0.1,
+            green: 0.1,
+            blue: 0.1,
             alpha: 1.0)
         metalView.depthStencilPixelFormat = .depth32Float
     }
@@ -85,6 +85,7 @@ extension Renderer {
         
         var params = Params(lightCount: uint(lights.count), cameraPos: scene.selectedCamera!.position)
         renderEncoder.setFragmentBytes(&params, length: MemoryLayout<Params>.stride, index: ParamsBuffer.index)
+        
         
         for model in scene.models {
             uniforms.viewMatrix = scene.selectedCamera?.viewMatrix ?? matrix_float4x4.identity

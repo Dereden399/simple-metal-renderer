@@ -10,11 +10,15 @@ import MetalKit
 class MetalProgram: NSObject {
     var renderer: Renderer
     var scene: ProgramScene?
+
+    var deltaTime: Double = 0
+    var lastTime: Double = CFAbsoluteTimeGetCurrent()
+
     init(metalView: MTKView) {
         renderer = Renderer(metalView: metalView)
         scene = ProgramScene()
         scene?.initWithBasicObjects()
-    
+
         super.init()
         metalView.delegate = self
         mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)
@@ -23,11 +27,19 @@ class MetalProgram: NSObject {
 
 extension MetalProgram: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        Settings.shared.windowSize = size;
+        Settings.shared.windowSize = size
     }
-    
+
     func draw(in view: MTKView) {
+        let currentTime = CFAbsoluteTimeGetCurrent()
+        let deltaTime = (currentTime - lastTime)
+        lastTime = currentTime
+        
         if let scene_ = scene {
+            for callback in scene_.callbacks {
+                callback(currentTime, deltaTime)
+            }
+            scene_.selectedCamera?.processInput(deltaTime: deltaTime)
             renderer.draw(in: view, scene: scene_)
         }
     }

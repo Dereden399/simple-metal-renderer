@@ -31,9 +31,17 @@ extension Model {
                     material = ResourcesManager.shared.defaultMaterial
                 }
                 
+                encoder.setVertexBytes(&material.materialParams, length: MemoryLayout<MyMaterial>.stride, index: MaterialBuffer.index)
+                
                 encoder.setFragmentBytes(&material.materialParams, length: MemoryLayout<MyMaterial>.stride, index: MaterialBuffer.index)
                 encoder.setFragmentTexture(material.textures.diffuseMap, index: DiffuseMap.index)
                 encoder.setFragmentTexture(material.textures.specularMap, index: SpecularMap.index)
+                if let normalMap = material.textures.normalMap {
+                    encoder.setFragmentTexture(normalMap, index: NormalMap.index)
+                }
+                if let emissionMap = material.textures.emissionMap {
+                    encoder.setFragmentTexture(emissionMap, index: EmissionMap.index)
+                }
                 
                 encoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset)
             }

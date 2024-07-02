@@ -29,6 +29,8 @@
 		92BA4E582C30144900BA0C83 /* Rendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E572C30144900BA0C83 /* Rendering.swift */; };
 		92BA4E5A2C306C4100BA0C83 /* LightUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E592C306C4100BA0C83 /* LightUtils.swift */; };
 		92BA4E5D2C307FE300BA0C83 /* Lighting.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E5C2C307FE300BA0C83 /* Lighting.metal */; };
+		92BA4E822C31504900BA0C83 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E812C31504900BA0C83 /* InputController.swift */; };
+		92BA4E852C343FCD00BA0C83 /* train.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 92BA4E842C343FCD00BA0C83 /* train.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,8 @@
 		92BA4E592C306C4100BA0C83 /* LightUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightUtils.swift; sourceTree = "<group>"; };
 		92BA4E5B2C307D5C00BA0C83 /* Lighting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
 		92BA4E5C2C307FE300BA0C83 /* Lighting.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Lighting.metal; sourceTree = "<group>"; };
+		92BA4E812C31504900BA0C83 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
+		92BA4E842C343FCD00BA0C83 /* train.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = train.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 		92BA4E132C2DDB8D00BA0C83 /* SimpleMetalRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				92BA4E832C343F8C00BA0C83 /* 3dAssets */,
 				92BA4E242C2DE65300BA0C83 /* SwiftUIViews */,
 				92BA4E232C2DE64000BA0C83 /* MetalRenderer */,
 				92BA4E142C2DDB8D00BA0C83 /* SimpleMetalRendererApp.swift */,
@@ -114,6 +119,7 @@
 		92BA4E232C2DE64000BA0C83 /* MetalRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				92BA4E802C31503E00BA0C83 /* Input */,
 				92BA4E4C2C2F31F600BA0C83 /* Protocols */,
 				92BA4E432C2F143500BA0C83 /* Materials */,
 				92BA4E3C2C2DFBA500BA0C83 /* Models */,
@@ -193,6 +199,22 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		92BA4E802C31503E00BA0C83 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E812C31504900BA0C83 /* InputController.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		92BA4E832C343F8C00BA0C83 /* 3dAssets */ = {
+			isa = PBXGroup;
+			children = (
+				92BA4E842C343FCD00BA0C83 /* train.usdz */,
+			);
+			path = 3dAssets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -251,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BA4E852C343FCD00BA0C83 /* train.usdz in Resources */,
 				92BA4E4B2C2F181C00BA0C83 /* Textures.xcassets in Resources */,
 				92BA4E1D2C2DDB8E00BA0C83 /* Preview Assets.xcassets in Resources */,
 				92BA4E192C2DDB8E00BA0C83 /* Assets.xcassets in Resources */,
@@ -272,6 +295,7 @@
 				92BA4E392C2DF54C00BA0C83 /* VertexDescriptor.swift in Sources */,
 				92BA4E5A2C306C4100BA0C83 /* LightUtils.swift in Sources */,
 				92BA4E5D2C307FE300BA0C83 /* Lighting.metal in Sources */,
+				92BA4E822C31504900BA0C83 /* InputController.swift in Sources */,
 				92BA4E342C2DF1B800BA0C83 /* Fragment.metal in Sources */,
 				92BA4E422C2DFBCF00BA0C83 /* Model.swift in Sources */,
 				92BA4E502C2FED1E00BA0C83 /* ProgramScene.swift in Sources */,

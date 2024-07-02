@@ -71,7 +71,7 @@ class ResourcesManager {
         textures[name] = texture
         return texture
     }
-    
+
     func loadMaterial(name: String) -> Material {
         if let material = materials[name] {
             return material
@@ -82,12 +82,22 @@ class ResourcesManager {
         return material
     }
     
+    func loadMaterial(name: String, mdlMaterial: MDLMaterial) -> Material {
+        if let material = materials[name] {
+            return material
+        }
+        let material = Material(mdlMaterial: mdlMaterial, name: name)
+        materials[name] = material
+        print("loaded material: \(name)")
+        return material
+    }
+
     func loadModel(primitive: PrimitiveType, meshName: String) -> Model? {
         if let mesh = meshes[meshName] {
             let model = Model(meshes: [mesh])
-            return model;
+            return model
         }
-        
+
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         let mdlMesh: MDLMesh = {
             switch primitive {
@@ -99,15 +109,48 @@ class ResourcesManager {
                 return MDLMesh(sphereWithExtent: [1, 1, 1], segments: [20, 20], inwardNormals: false, geometryType: .triangles, allocator: allocator)
             }
         }()
+        mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate, tangentAttributeNamed: MDLVertexAttributeTangent, bitangentAttributeNamed: MDLVertexAttributeBitangent)
         mdlMesh.vertexDescriptor = .defaultLayout
         if let mtkMesh = try? MTKMesh(mesh: mdlMesh, device: Renderer.device) {
             meshes[meshName] = mtkMesh
             let model = Model(meshes: [mtkMesh])
             print("loaded new mesh: \(meshName)")
-            return model;
+            return model
         } else {
             print("Error converting mdlmesh to mtkmesh")
             return nil
         }
+    }
+
+    func loadModel(modelName name: String) -> Model? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: nil) else {
+            print("Model \(name) not found in the bundle when trying to load it")
+            return nil
+        }
+        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
+        
+        // TODO: build the model from cache if it was loaded before
+        
+        let asset = MDLAsset(url: url, vertexDescriptor: .defaultLayout, bufferAllocator: allocator)
+        asset.loadTextures()
+        let mdlMeshes =
+            asset.childObjects(of: MDLMesh.self) as? [MDLMesh] ?? []
+        
+        
+        let meshesWithMaterials = mdlMeshes.enumerated().map { idx, mdlMesh in
+            mdlMesh.addTangentBasis(
+                forTextureCoordinateAttributeNamed:
+                MDLVertexAttributeTextureCoordinate,
+                tangentAttributeNamed: MDLVertexAttributeTangent,
+                bitangentAttributeNamed: MDLVertexAttributeBitangent)
+            let mtkMesh =  try! MTKMesh(mesh: mdlMesh, device: Renderer.device)
+            let meshName = "\(name) Mesh[\(idx)]"
+            self.meshes[meshName] = mtkMesh
+            print("loaded new mesh: \(meshName)")
+            let meshWithMaterials = Model.MeshWithMaterials(mdlMesh: mdlMesh, mtkMesh: mtkMesh, name: meshName)
+            return meshWithMaterials
+        }
+        let model = Model(meshesWithMaterials: meshesWithMaterials)
+        return model;
     }
 }

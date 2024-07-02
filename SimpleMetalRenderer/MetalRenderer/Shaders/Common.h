@@ -38,6 +38,9 @@ typedef struct {
     float shininess;
     vector_float4 blendColor;
     float emissionStrenght;
+    vector_float2 tiling;
+    int useNormalMap;
+    int useEmissionMap;
 } MyMaterial;
 
 typedef struct {

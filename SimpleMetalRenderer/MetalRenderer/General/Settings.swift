@@ -12,6 +12,8 @@ class Settings {
     static var shared = Settings();
     
     var windowSize: CGSize = CGSize(width: 0, height: 0)
+    var rotatingSpeed: Float = 50
+    var movingSpeed: Float = 4
     
     private init() {}
 }

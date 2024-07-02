@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "levels" : [
+    {
+      "filename" : "brickwall_normal.jpg",
+      "mipmap-level" : "base"
+    }
+  ]
+}

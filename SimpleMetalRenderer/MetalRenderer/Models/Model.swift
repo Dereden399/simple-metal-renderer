@@ -16,6 +16,11 @@ class Model: Transformable {
         self.transform = .init()
     }
     
+    init(meshesWithMaterials: [Model.MeshWithMaterials]) {
+        self.meshes = meshesWithMaterials
+        self.transform = .init()
+    }
+    
     func setMaterial(_ material: Material?) {
         for i in 0..<meshes.count {
             for j in 0..<meshes[i].submeshes.count {
@@ -41,6 +46,18 @@ extension Model {
             self.vertexBuffers = mesh.vertexBuffers
             self.submeshes = mesh.submeshes.map {submesh in
                 SubmeshWithMaterial(submesh: submesh, material: nil)
+            }
+        }
+        
+        init(mdlMesh: MDLMesh, mtkMesh: MTKMesh, name: String) {
+            self.vertexBuffers = mtkMesh.vertexBuffers
+            self.submeshes = zip(mdlMesh.submeshes! as! [MDLSubmesh], mtkMesh.submeshes).enumerated().map {idx, submesh in
+                var material: Material? = nil
+                if let mdlMaterial = submesh.0.material {
+                    material = ResourcesManager.shared.loadMaterial(name: "\(name) Submesh[\(idx)] Material", mdlMaterial: mdlMaterial)
+                }
+
+                return SubmeshWithMaterial(submesh: submesh.1, material: material)
             }
         }
     }

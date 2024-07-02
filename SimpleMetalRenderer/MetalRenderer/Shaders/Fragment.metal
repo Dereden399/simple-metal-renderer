@@ -27,7 +27,7 @@ fragment float4 fragment_main(
     float4 diffuseColor = baseColorTexture.sample(textureSampler, input.uv) * material.blendColor;
     float3 specularIntensity = specularTexture.sample(textureSampler, input.uv).rgb;
     float3 normal = input.worldNormal;
-    if (!is_null_texture(normalTexture)) {
+    if (material.useNormalMap) {
         normal = normalTexture.sample(textureSampler, input.uv).rgb;
         normal = normal*2 - 1;
         normal = float3x3(input.worldTangent, input.worldBitangent, input.worldNormal)*normal;
