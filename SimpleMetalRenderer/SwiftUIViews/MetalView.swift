@@ -11,11 +11,29 @@ import SwiftUI
 struct MetalView: View {
     @State private var mtkView = MTKView()
     @State private var program: MetalProgram?
+    @State private var previousTranslation = CGSize.zero
     var body: some View {
         MetalViewRepresentable(program: program, metalView: $mtkView)
             .onAppear {
                 program = MetalProgram(metalView: mtkView)
             }
+            .gesture(DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    InputController.shared.touchLocation = value.location
+                    InputController.shared.touchDelta = CGSize(
+                        width: value.translation.width - previousTranslation.width,
+                        height: value.translation.height - previousTranslation.height)
+                    previousTranslation = value.translation
+                    // if the user drags, cancel the tap touch
+                    if abs(value.translation.width) > 1 ||
+                        abs(value.translation.height) > 1
+                    {
+                        InputController.shared.touchLocation = nil
+                    }
+                }
+                .onEnded { _ in
+                    previousTranslation = .zero
+                })
             .border(.black)
             .padding()
         Text("Hello world")

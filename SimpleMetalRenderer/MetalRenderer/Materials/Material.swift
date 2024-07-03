@@ -78,5 +78,15 @@ extension MyMaterial {
            specular.type == .float {
             self.shininess = (2/pow(specular.floatValue+0.01, 4) - 2)
         }
+        
+        if let normals = mdlMaterial.property(with: .objectSpaceNormal),
+           normals.type == .texture {
+            self.useNormalMap = 1
+        }
+        
+        if let emission = mdlMaterial.property(with: .emission),
+           emission.type == .texture {
+            self.useEmissionMap = 1
+        }
     }
 }

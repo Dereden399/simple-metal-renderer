@@ -59,8 +59,10 @@ extension ProgramScene {
         
         if var model = ResourcesManager.shared.loadModel(modelName: "train.usdz") {
             model.position = [-3, -1, 0]
-            model.rotation = [0, 90, 0]
             self.models.append(model)
+            self.callbacks.append {currentTime, _ in
+                model.rotation.y = Float(sin(currentTime)*180)
+            }
         }
         
         
