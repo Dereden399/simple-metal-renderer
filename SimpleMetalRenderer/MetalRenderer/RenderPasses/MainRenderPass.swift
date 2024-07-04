@@ -13,7 +13,7 @@ struct MainRenderPass: RenderPass {
     var pipelineState: MTLRenderPipelineState
     let depthStencilState: MTLDepthStencilState?
 
-    weak var idTexture: MTLTexture?
+    weak var shadowTexture: MTLTexture?
 
     init(view: MTKView) {
         pipelineState = PipelineStates.createMainPSO(
@@ -48,15 +48,13 @@ struct MainRenderPass: RenderPass {
         var params = Params(lightCount: uint(lights.count), cameraPos: scene.selectedCamera!.position)
         renderEncoder.setFragmentBytes(&params, length: MemoryLayout<Params>.stride, index: ParamsBuffer.index)
         
-        var uniforms_ = uniforms
+        renderEncoder.setFragmentTexture(shadowTexture, index: 15)
         
-        uniforms_.viewMatrix = scene.selectedCamera?.viewMatrix ?? matrix_float4x4.identity
-        uniforms_.projectionMatrix = scene.selectedCamera?.projectionMatrix ?? matrix_float4x4.identity
-
+        
         for model in scene.models {
             model.render(
                 encoder: renderEncoder,
-                uniforms: uniforms_)
+                uniforms: uniforms)
         }
         renderEncoder.endEncoding()
     }

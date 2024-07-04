@@ -18,7 +18,9 @@ fragment float4 fragment_main(
                               constant Params &params [[buffer(ParamsBuffer)]],
                               texture2d<float> baseColorTexture [[texture(DiffuseMap)]],
                               texture2d<float> normalTexture [[texture(NormalMap)]],
-                              texture2d<float> specularTexture [[texture(SpecularMap)]])
+                              texture2d<float> specularTexture [[texture(SpecularMap)]],
+                              texture2d<float> emissionTexture [[texture(EmissionMap)]],
+                              depth2d<float> shadowTexture [[texture(15)]])
 {
     constexpr sampler textureSampler(
                                      filter::linear,
@@ -34,7 +36,13 @@ fragment float4 fragment_main(
     }
     normal = normalize(normal);
     
-    float3 result = processPhong(lights, params, material, normal, input.worldPosition, diffuseColor.rgb, specularIntensity);
+    float3 result = processPhong(lights, params, material, normal, input.worldPosition, diffuseColor.rgb, specularIntensity, shadowTexture, input.shadowPosition);
+    
+    float3 emission = float3(0, 0, 0);
+    if (material.useEmissionMap) {
+        emission = emissionTexture.sample(textureSampler, input.uv).rgb;
+    }
+    result += emission;
     
     return float4(result, diffuseColor.a);
 }

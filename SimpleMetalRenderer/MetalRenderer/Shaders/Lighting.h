@@ -10,6 +10,6 @@
 
 #import "Common.h"
 
-float3 processPhong(constant Light* lights, constant Params& params, constant MyMaterial& material, float3 normal, float3 worldPos, float3 diffuseColor, float3 specularIntensity);
+float3 processPhong(constant Light* lights, constant Params& params, constant MyMaterial& material, float3 normal, float3 worldPos, float3 diffuseColor, float3 specularIntensity, depth2d<float> shadowTexture, float4 shadowPosition_);
 
 #endif /* Lighting_h */

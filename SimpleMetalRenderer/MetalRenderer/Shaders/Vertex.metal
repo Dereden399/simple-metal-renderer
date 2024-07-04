@@ -22,7 +22,8 @@ vertex VertexOut vertex_main(VertexIn input [[stage_in]],
         .worldPosition = worldPosition.xyz / worldPosition.w,
         .worldTangent = (uniforms.modelMatrix*float4(input.tangent, 0)).xyz,
         .worldBitangent = (uniforms.modelMatrix*float4(input.bitangent,0)).xyz,
-        .uv = {input.uv.x * material.tiling.x, input.uv.y*material.tiling.y}
+        .uv = {input.uv.x * material.tiling.x, input.uv.y*material.tiling.y},
+        .shadowPosition = uniforms.shadowProjectionMatrix * uniforms.shadowViewMatrix * uniforms.modelMatrix * input.position
     };
     return out;
 }

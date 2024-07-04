@@ -10,7 +10,7 @@ using namespace metal;
 
 #import "Lighting.h"
 
-float3 processPhong(constant Light* lights, constant Params& params, constant MyMaterial& material, float3 normal, float3 worldPos, float3 diffuseColor, float3 specularIntensity)
+float3 processPhong(constant Light* lights, constant Params& params, constant MyMaterial& material, float3 normal, float3 worldPos, float3 diffuseColor, float3 specularIntensity, depth2d<float> shadowTexture, float4 shadowPosition_)
 {
     float3 diffuse = 0;
     float3 specular = 0;
@@ -74,5 +74,25 @@ float3 processPhong(constant Light* lights, constant Params& params, constant My
         }
     }
     
-    return diffuse + specular + ambient;
+    float shadow = 0;
+    
+    // shadow calculation
+    float3 shadowPosition = shadowPosition_.xyz / shadowPosition_.w;
+    float2 xy = shadowPosition.xy;
+    xy = xy * 0.5 + 0.5;
+    xy.y = 1 - xy.y;
+    xy = saturate(xy);
+    constexpr sampler s(
+      coord::normalized, filter::linear,
+      address::clamp_to_edge,
+      compare_func:: less);
+    float shadow_sample = shadowTexture.sample(s, xy);
+    if (shadowPosition.z > shadow_sample + 0.001) {
+        shadow = 1;
+    }
+    if (shadowPosition.z > 1.0 || shadowPosition.z < 0) {
+        shadow = 0;
+    }
+    
+    return (diffuse + specular)*(1-shadow) + ambient;
 }

@@ -106,7 +106,7 @@ class ResourcesManager {
             case .plane:
                 return MDLMesh(planeWithExtent: [1, 1, 1], segments: [2], geometryType: .triangles, allocator: allocator)
             case .sphere:
-                return MDLMesh(sphereWithExtent: [1, 1, 1], segments: [20, 20], inwardNormals: false, geometryType: .triangles, allocator: allocator)
+                return MDLMesh(sphereWithExtent: [1, 1, 1], segments: [64, 64], inwardNormals: false, geometryType: .triangles, allocator: allocator)
             }
         }()
         mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate, tangentAttributeNamed: MDLVertexAttributeTangent, bitangentAttributeNamed: MDLVertexAttributeBitangent)

@@ -34,6 +34,8 @@
 		92BA4E8E2C35608300BA0C83 /* RenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E8D2C35608300BA0C83 /* RenderPass.swift */; };
 		92BA4E902C35608D00BA0C83 /* Pipelines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E8F2C35608D00BA0C83 /* Pipelines.swift */; };
 		92BA4E922C35612400BA0C83 /* MainRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E912C35612400BA0C83 /* MainRenderPass.swift */; };
+		92BA4E942C36FC6A00BA0C83 /* ShadowsRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E932C36FC6A00BA0C83 /* ShadowsRenderPass.swift */; };
+		92BA4E962C37041200BA0C83 /* Shadows.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E952C37041200BA0C83 /* Shadows.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		92BA4E8D2C35608300BA0C83 /* RenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderPass.swift; sourceTree = "<group>"; };
 		92BA4E8F2C35608D00BA0C83 /* Pipelines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pipelines.swift; sourceTree = "<group>"; };
 		92BA4E912C35612400BA0C83 /* MainRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRenderPass.swift; sourceTree = "<group>"; };
+		92BA4E932C36FC6A00BA0C83 /* ShadowsRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsRenderPass.swift; sourceTree = "<group>"; };
+		92BA4E952C37041200BA0C83 /* Shadows.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shadows.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +172,7 @@
 				92BA4E362C2DF25100BA0C83 /* Shaders.h */,
 				92BA4E5B2C307D5C00BA0C83 /* Lighting.h */,
 				92BA4E5C2C307FE300BA0C83 /* Lighting.metal */,
+				92BA4E952C37041200BA0C83 /* Shadows.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				92BA4E8D2C35608300BA0C83 /* RenderPass.swift */,
 				92BA4E8F2C35608D00BA0C83 /* Pipelines.swift */,
 				92BA4E912C35612400BA0C83 /* MainRenderPass.swift */,
+				92BA4E932C36FC6A00BA0C83 /* ShadowsRenderPass.swift */,
 			);
 			path = RenderPasses;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 			files = (
 				92BA4E522C2FED2B00BA0C83 /* Camera.swift in Sources */,
 				92BA4E2B2C2DE73B00BA0C83 /* MetalProgram.swift in Sources */,
+				92BA4E942C36FC6A00BA0C83 /* ShadowsRenderPass.swift in Sources */,
 				92BA4E282C2DE68800BA0C83 /* MetalView.swift in Sources */,
 				92BA4E8E2C35608300BA0C83 /* RenderPass.swift in Sources */,
 				92BA4E582C30144900BA0C83 /* Rendering.swift in Sources */,
@@ -317,6 +324,7 @@
 				92BA4E342C2DF1B800BA0C83 /* Fragment.metal in Sources */,
 				92BA4E902C35608D00BA0C83 /* Pipelines.swift in Sources */,
 				92BA4E422C2DFBCF00BA0C83 /* Model.swift in Sources */,
+				92BA4E962C37041200BA0C83 /* Shadows.metal in Sources */,
 				92BA4E502C2FED1E00BA0C83 /* ProgramScene.swift in Sources */,
 				92BA4E3B2C2DFB4200BA0C83 /* Utils.swift in Sources */,
 				92BA4E472C2F145500BA0C83 /* Material.swift in Sources */,

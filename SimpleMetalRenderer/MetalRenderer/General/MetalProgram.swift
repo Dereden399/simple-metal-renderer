@@ -28,6 +28,8 @@ class MetalProgram: NSObject {
 extension MetalProgram: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         Settings.shared.windowSize = size
+        renderer.mainRenderPass.resize(view: view, size: size)
+        renderer.shadowsRenderPass.resize(view: view, size: size)
     }
 
     func draw(in view: MTKView) {

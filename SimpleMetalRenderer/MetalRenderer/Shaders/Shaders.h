@@ -23,7 +23,7 @@ struct VertexOut {
     float3 worldPosition;
     float3 worldTangent;
     float3 worldBitangent;
-    
+    float4 shadowPosition;
 };
 
 
