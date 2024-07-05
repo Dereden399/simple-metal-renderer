@@ -85,9 +85,9 @@ extension ProgramScene {
         
         self.lights = [sun, point]
         
-        self.callbacks.append {currentTime, _ in
-            self.lights[0].position.x = 2*Float(cos(currentTime))
-            self.lights[0].position.z = 2*Float(sin(currentTime))
-        }
+//        self.callbacks.append {currentTime, _ in
+//            self.lights[0].position.x = 2*Float(cos(currentTime))
+//            self.lights[0].position.z = 2*Float(sin(currentTime))
+//        }
     }
 }
