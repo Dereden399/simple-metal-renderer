@@ -25,20 +25,19 @@ class Material {
     
     init(blendColor: float4) {
         self.textures = Textures(diffuseMap: ResourcesManager.shared.defaultDiffuseTexture, specularMap: ResourcesManager.shared.defaultSpecularTexture)
-        self.materialParams = MyMaterial(shininess: 64, blendColor: blendColor, emissionStrenght: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
+        self.materialParams = MyMaterial(shininess: 64, blendColor: blendColor, emissionStrength: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
     }
     
     init(textures: Textures) {
         self.textures = textures
-        self.materialParams = MyMaterial(shininess: 64, blendColor: [1, 1, 1, 1], emissionStrenght: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
+        self.materialParams = MyMaterial(shininess: 64, blendColor: [1, 1, 1, 1], emissionStrength: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
     }
     
     init(mdlMaterial: MDLMaterial, name: String) {
-        
         self.textures = Textures(
             diffuseMap: mdlMaterial.texture(type: .baseColor, name: name) ?? ResourcesManager.shared.defaultDiffuseTexture,
             specularMap: mdlMaterial.texture(type: .roughness, name: name) ?? ResourcesManager.shared.defaultSpecularTexture,
-            normalMap: mdlMaterial.texture(type: .objectSpaceNormal, name: name),
+            normalMap: mdlMaterial.texture(type: .tangentSpaceNormal, name: name),
             emissionMap: mdlMaterial.texture(type: .emission, name: name)
         )
         self.materialParams = MyMaterial(mdlMaterial: mdlMaterial)
@@ -59,7 +58,7 @@ extension MDLMaterial {
 
 extension MyMaterial {
     init() {
-        self = MyMaterial(shininess: 64, blendColor: [1, 1, 1, 1], emissionStrenght: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
+        self = MyMaterial(shininess: 64, blendColor: [1, 1, 1, 1], emissionStrength: 1, tiling: [1, 1], useNormalMap: 0, useEmissionMap: 0)
     }
     
     init(mdlMaterial: MDLMaterial) {
@@ -79,7 +78,7 @@ extension MyMaterial {
             self.shininess = (2/pow(specular.floatValue+0.01, 4) - 2)
         }
         
-        if let normals = mdlMaterial.property(with: .objectSpaceNormal),
+        if let normals = mdlMaterial.property(with: .tangentSpaceNormal),
            normals.type == .texture {
             self.useNormalMap = 1
         }
@@ -87,6 +86,7 @@ extension MyMaterial {
         if let emission = mdlMaterial.property(with: .emission),
            emission.type == .texture {
             self.useEmissionMap = 1
+            self.emissionStrength = 2
         }
     }
 }

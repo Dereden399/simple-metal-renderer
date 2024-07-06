@@ -36,6 +36,7 @@
 		92BA4E922C35612400BA0C83 /* MainRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E912C35612400BA0C83 /* MainRenderPass.swift */; };
 		92BA4E942C36FC6A00BA0C83 /* ShadowsRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E932C36FC6A00BA0C83 /* ShadowsRenderPass.swift */; };
 		92BA4E962C37041200BA0C83 /* Shadows.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4E952C37041200BA0C83 /* Shadows.metal */; };
+		92BA4E982C39332B00BA0C83 /* bonfire.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 92BA4E972C39332B00BA0C83 /* bonfire.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		92BA4E912C35612400BA0C83 /* MainRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRenderPass.swift; sourceTree = "<group>"; };
 		92BA4E932C36FC6A00BA0C83 /* ShadowsRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsRenderPass.swift; sourceTree = "<group>"; };
 		92BA4E952C37041200BA0C83 /* Shadows.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shadows.metal; sourceTree = "<group>"; };
+		92BA4E972C39332B00BA0C83 /* bonfire.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = bonfire.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 		92BA4E832C343F8C00BA0C83 /* 3dAssets */ = {
 			isa = PBXGroup;
 			children = (
+				92BA4E972C39332B00BA0C83 /* bonfire.usdz */,
 				92BA4E842C343FCD00BA0C83 /* train.usdz */,
 			);
 			path = 3dAssets;
@@ -297,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92BA4E852C343FCD00BA0C83 /* train.usdz in Resources */,
+				92BA4E982C39332B00BA0C83 /* bonfire.usdz in Resources */,
 				92BA4E4B2C2F181C00BA0C83 /* Textures.xcassets in Resources */,
 				92BA4E1D2C2DDB8E00BA0C83 /* Preview Assets.xcassets in Resources */,
 				92BA4E192C2DDB8E00BA0C83 /* Assets.xcassets in Resources */,

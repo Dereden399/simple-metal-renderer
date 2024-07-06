@@ -104,7 +104,7 @@ class ResourcesManager {
             case .cube:
                 return MDLMesh(boxWithExtent: [1, 1, 1], segments: [1, 1, 1], inwardNormals: false, geometryType: .triangles, allocator: allocator)
             case .plane:
-                return MDLMesh(planeWithExtent: [1, 1, 1], segments: [2], geometryType: .triangles, allocator: allocator)
+                return MDLMesh(planeWithExtent: [1, 1, 1], segments: [2, 2], geometryType: .triangles, allocator: allocator)
             case .sphere:
                 return MDLMesh(sphereWithExtent: [1, 1, 1], segments: [64, 64], inwardNormals: false, geometryType: .triangles, allocator: allocator)
             }

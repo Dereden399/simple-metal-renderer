@@ -38,11 +38,11 @@ extension ProgramScene {
         self.models = [cube, sphere]
         
         cube.position = [0, -1, 0]
-        cube.scale = [10, 10, 0.1]
+        cube.scale = [20, 20, 0.1]
         cube.rotation = [90, 0, 0]
         let cubeMaterial = ResourcesManager.shared.loadMaterial(name: "CubeMaterial")
         cubeMaterial.materialParams.blendColor = [1, 1, 1, 1]
-        cubeMaterial.materialParams.tiling = [10, 10]
+        cubeMaterial.materialParams.tiling = [20, 20]
         cube.setMaterial(cubeMaterial)
         cubeMaterial.textures.diffuseMap = ResourcesManager.shared.loadTexture(name: "Brickwall")!
         cubeMaterial.textures.normalMap = ResourcesManager.shared.loadTexture(name: "Brickwall_normal")!
@@ -57,12 +57,9 @@ extension ProgramScene {
         sphereMaterial.materialParams.blendColor = [0.05, 1, 0.05, 1]
         sphere.setMaterial(sphereMaterial)
         
-        if var model = ResourcesManager.shared.loadModel(modelName: "train.usdz") {
-            model.position = [-3, -1, 0]
+        if var model = ResourcesManager.shared.loadModel(modelName: "bonfire.usdz") {
+            model.position = [-3, -0.35, 0]
             self.models.append(model)
-            self.callbacks.append {currentTime, _ in
-                model.rotation.y = Float(sin(currentTime)*180)
-            }
         }
         
         
@@ -73,14 +70,14 @@ extension ProgramScene {
         sun.type = Sun
         sun.ambientIntensity = 0.2
         sun.position = [2, 2, -2]
-        sun.color = [1, 1, 1]
+        sun.color = [0.5, 0.5, 0.5]
         
         var point = Light.getDefaultLight()
         point.type = Point
-        point.ambientIntensity = 0.05
-        point.color = [1, 0, 1]
+        point.ambientIntensity = 0.2
+        point.color = [1, 0.5, 0]
         point.attenuation = [1, 0.4, 0.4]
-        point.position = [-1, -0.5, 0]
+        point.position = [-3, -0.5, 0]
         
         
         self.lights = [sun, point]

@@ -40,7 +40,7 @@ fragment float4 fragment_main(
     
     float3 emission = float3(0, 0, 0);
     if (material.useEmissionMap) {
-        emission = emissionTexture.sample(textureSampler, input.uv).rgb;
+        emission = emissionTexture.sample(textureSampler, input.uv).rgb*material.emissionStrength;
     }
     result += emission;
     

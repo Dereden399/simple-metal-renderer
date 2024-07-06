@@ -37,7 +37,7 @@ typedef enum {
 typedef struct {
     float shininess;
     vector_float4 blendColor;
-    float emissionStrenght;
+    float emissionStrength;
     vector_float2 tiling;
     int useNormalMap;
     int useEmissionMap;
